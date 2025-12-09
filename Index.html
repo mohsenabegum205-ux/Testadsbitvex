@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alex Rivera — Web Developer</title>
+  <meta name="description" content="Alex Rivera — Frontend Web Developer. Build beautiful, fast, accessible websites and web apps."/>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c3aed; --glass:rgba(255,255,255,0.04);
+      --radius:14px; --ff:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    }
+    [data-theme="light"]{
+      --bg:#f6f8fb; --card:#ffffff; --muted:#6b7280; --accent:#6d28d9; --glass:rgba(15,23,42,0.03);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:var(--ff); background:
+      radial-gradient(800px 400px at 10% 10%, rgba(124,58,237,0.08), transparent 10%),
+      radial-gradient(600px 300px at 90% 90%, rgba(34,211,238,0.04), transparent 10%),
+      linear-gradient(180deg,var(--bg), color-mix(in srgb, var(--bg) 95%, black));
+      color: #e6eef8; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      padding:36px;
+    }
+
+    .container{max-width:1100px;margin:0 auto;}
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+    .logo{
+      width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#22d3ee);
+      display:grid;place-items:center;font-weight:700;color:white;box-shadow:0 6px 18px rgba(2,6,23,0.6);
+    }
+    nav{display:flex;gap:12px;align-items:center}
+    .navlink{
+      color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;
+    }
+    .navlink:hover{background:var(--glass);color:inherit}
+
+    .theme-toggle, .cta {
+      background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04); color:inherit; padding:8px 12px;border-radius:10px;
+      cursor:pointer;font-weight:700;
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;
+      margin-bottom:36px;
+    }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr} .hero-right{order:-1} }
+
+    h1{font-size:34px;margin:0 0 10px 0;line-height:1.05}
+    p.lead{color:var(--muted);margin:0 0 18px 0;font-size:15px}
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:18px;padding:20px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.5);
+    }
+    .highlight{color:var(--accent)}
+    .cta-row{display:flex;gap:12px;margin-top:16px}
+    .btn-primary{
+      background:linear-gradient(90deg,var(--accent),#22d3ee);padding:12px 16px;border-radius:12px;border:none;color:white;font-weight:800;
+      cursor:pointer;box-shadow:0 8px 20px rgba(124,58,237,0.18);transition:transform .18s ease;
+    }
+    .btn-primary:active{transform:translateY(2px)}
+    .btn-ghost{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 14px;border-radius:12px;color:var(--muted);cursor:pointer;
+    }
+
+    /* Cards grid */
+    .grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px;
+    }
+    @media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background:var(--card);padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .card h3{margin:0 0 6px 0;font-size:16px}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* skills */
+    .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .skill{background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);padding:8px 10px;border-radius:10px;font-weight:700;font-size:13px}
+
+    /* projects */
+    .project-card{display:flex;flex-direction:column;gap:10px}
+    .project-preview{height:120px;border-radius:10px;background:linear-gradient(135deg, rgba(255,255,255,0.02), transparent);display:grid;place-items:center;color:var(--muted);font-weight:700}
+
+    /* contact */
+    .contact{
+      display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start;margin-top:28px;
+    }
+    @media (max-width:900px){ .contact{grid-template-columns:1fr} }
+
+    form{display:flex;flex-direction:column;gap:10px}
+    input,textarea{
+      background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:10px;color:inherit;outline:none;
+    }
+    input::placeholder, textarea::placeholder{color:var(--muted)}
+    .form-actions{display:flex;gap:10px;align-items:center;margin-top:6px}
+
+    footer{margin-top:40px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    /* small helpers */
+    .pill{padding:6px 10px;border-radius:999px;background:var(--glass);font-weight:700;color:var(--muted);font-size:13px}
+    .row{display:flex;gap:12px;align-items:center}
+
+    /* subtle animations */
+    .float {
+      animation:float 6s ease-in-out infinite;
+    }
+    @keyframes float{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+      100%{transform:translateY(0)}
+    }
+
+    /* accessible focus */
+    :focus{outline:3px solid color-mix(in srgb,var(--accent) 50%, transparent);outline-offset:2px}
+
+    /* tiny responsive tweaks */
+    @media (max-width:420px){
+      body{padding:18px}
+      h1{font-size:28px}
+    }
+
+    /* success message */
+    .toast{
+      position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;padding:12px 16px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6);
+      transform:translateY(10px);opacity:0;transition:opacity .2s, transform .2s;
+    }
+    .toast.show{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body data-theme="dark">
+  <div class="container" role="main">
+    <header>
+      <a class="brand" href="#">
+        <div class="logo" aria-hidden="true">AR</div>
+        <div>
+          <div style="font-weight:800">Alex Rivera</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">Frontend Web Developer</div>
+        </div>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <a class="navlink" href="#work">Work</a>
+        <a class="navlink" href="#skills">Skills</a>
+        <a class="navlink" href="#contact">Contact</a>
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">Dark</button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>Hi — I'm <span class="highlight">Alex</span>, a frontend developer who builds <span class="highlight">fast, accessible</span> websites.</h1>
+        <p class="lead">I turn ideas into polished interfaces using HTML, CSS and JavaScript. I focus on accessibility, performance and delightful UI micro-interactions.</p>
+
+        <div class="cta-row">
+          <button class="btn-primary" id="hireBtn">Hire me — let's talk</button>
+          <button class="btn-ghost" id="viewWork">View work</button>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;align-items:center;">
+          <div class="pill">Open to work</div>
+          <div class="muted" style="font-size:13px">Available for remote contracts • UTC-5</div>
+        </div>
+
+        <div class="grid" style="margin-top:20px">
+          <div class="card">
+            <h3>Responsive apps</h3>
+            <div class="muted">Design + build responsive web apps optimized for mobile and desktop.</div>
+          </div>
+          <div class="card">
+            <h3>UI Animations</h3>
+            <div class="muted">Polished transitions and micro-interactions that feel natural and fast.</div>
+          </div>
+          <div class="card">
+            <h3>Performance</h3>
+            <div class="muted">Lightweight code and accessibility-first approach for real users.</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-right hero-card float" aria-hidden="false">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;color:var(--muted)">Current project</div>
+            <div style="font-weight:800;font-size:16px">Design System for Acme Co.</div>
+          </div>
+          <div class="pill">Design → Code</div>
+        </div>
+
+        <div style="margin-top:12px" class="muted">Tech highlights</div>
+        <div class="skills" aria-hidden="true">
+          <div class="skill">HTML</div><div class="skill">CSS</div><div class="skill">JavaScript</div>
+          <div class="skill">Accessibility</div><div class="skill">React</div><div class="skill">Vite</div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px">
+          <button class="btn-primary" onclick="openProject('acme')">See case study</button>
+          <button class="btn-ghost" onclick="copyEmail()">Copy email</button>
+        </div>
+      </aside>
+    </section>
+
+    <section id="work" aria-labelledby="workHeading">
+      <h2 id="workHeading" style="margin:0 0 8px 0">Selected projects</h2>
+      <p class="muted" style="margin-top:0">Clean code, shipped — a few highlights.</p>
+
+      <div class="grid" style="margin-top:12px">
+        <div class="card project-card" role="article">
+          <div class="project-preview">Portfolio Grid — E-commerce demo</div>
+          <div>
+            <h3>ShopFast UI</h3>
+            <div class="muted">A fast product listing with accessible keyboard navigation and client-side filtering.</div>
+          </div>
+        </div>
+
+        <div class="card project-card">
+          <div class="project-preview">Design System — Tokens & components</div>
+          <div>
+            <h3>DesignSys</h3>
+            <div class="muted">Built a tokenized design system with docs and interactive playground.</div>
+          </div>
+        </div>
+
+        <div class="card project-card">
+          <div class="project-preview">Landing page — Performance focus</div>
+          <div>
+            <h3>Acme Landing</h3>
+            <div class="muted">Optimized images, critical CSS, and 1.2s First Contentful Paint in tests.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" style="margin-top:26px">
+      <h2 style="margin:0 0 6px 0">Skills & tools</h2>
+      <div class="muted">Front-end focused — strong fundamentals and practical tooling.</div>
+
+      <div style="display:flex;gap:18px;margin-top:12px;flex-wrap:wrap">
+        <div class="card" style="min-width:240px;">
+          <h3>Core</h3>
+          <div class="muted">HTML, CSS (BEM / utility patterns), JavaScript (ES6+)</div>
+          <div class="skills" style="margin-top:8px">
+            <div class="skill">Semantic HTML</div><div class="skill">Responsive</div><div class="skill">ARIA</div>
+          </div>
+        </div>
+
+        <div class="card" style="min-width:240px;">
+          <h3>Frameworks / Tools</h3>
+          <div class="muted">React, Vite, Tailwind (knowledge), Storybook, Git</div>
+          <div style="margin-top:8px" class="skills">
+            <div class="skill">React</div><div class="skill">Vite</div><div class="skill">Storybook</div>
+          </div>
+        </div>
+
+        <div class="card" style="min-width:240px;">
+          <h3>Performance & Testing</h3>
+          <div class="muted">Lighthouse, code splitting, CI, simple E2E tests</div>
+          <div style="margin-top:8px" class="skills">
+            <div class="skill">Lighthouse</div><div class="skill">Cypress</div><div class="skill">Bundle splitting</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" style="margin-top:26px">
+      <div>
+        <h2 style="margin:0 0 6px 0">Contact</h2>
+        <div class="muted">Want to work together? Send a quick message — I usually respond within 24–48 hours.</div>
+
+        <form id="contactForm" onsubmit="handleSubmit(event)" style="margin-top:12px" aria-label="Contact form">
+          <label>
+            <div style="font-weight:700;margin-bottom:6px">Your name</div>
+            <input name="name" required placeholder="Jane Doe" />
+          </label>
+          <label>
+            <div style="font-weight:700;margin-bottom:6px">Email</div>
+            <input name="email" type="email" required placeholder="jane@example.com" />
+          </label>
+          <label>
+            <div style="font-weight:700;margin-bottom:6px">Message</div>
+            <textarea name="message" rows="5" required placeholder="Short summary of your project..."></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="btn-primary" type="submit">Send message</button>
+            <button type="button" class="btn-ghost" onclick="mailtoContact()">Email directly</button>
+            <div class="muted" style="margin-left:auto">or <button class="navlink" type="button" onclick="copyEmail()">copy email</button></div>
+          </div>
+        </form>
+      </div>
+
+      <aside class="hero-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;color:var(--muted)">Email</div>
+            <div style="font-weight:800">alex.rivera@example.com</div>
+          </div>
+          <div>
+            <button class="btn-ghost" onclick="copyEmail()">Copy</button>
+          </div>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="muted">Quick facts</div>
+          <ul style="margin:8px 0 0 18px;color:var(--muted)">
+            <li>Based: Remote</li>
+            <li>Available: Freelance / part-time</li>
+            <li>Open to mentorship & collaboration</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="muted">Social</div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <a class="navlink" href="#" aria-label="GitHub">GitHub</a>
+            <a class="navlink" href="#" aria-label="LinkedIn">LinkedIn</a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Alex Rivera</div>
+      <div class="muted">Built with HTML, CSS & JS — single file demo</div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Message sent — thanks!</div>
+
+  <script>
+    // small utilities
+    const $ = sel => document.querySelector(sel);
+    const toast = $('#toast');
+    const YEAR = new Date().getFullYear();
+    $('#year').textContent = YEAR;
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    function updateThemeLabel(){
+      const theme = document.body.getAttribute('data-theme') === 'light' ? 'Light' : 'Dark';
+      themeToggle.textContent = theme;
+    }
+    themeToggle.addEventListener('click', () => {
+      const current = document.body.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+      updateThemeLabel();
+    });
+    updateThemeLabel();
+
+    // CTA buttons
+    document.getElementById('viewWork').addEventListener('click', ()=> {
+      document.getElementById('work').scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('hireBtn').addEventListener('click', ()=> {
+      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+    });
+
+    // copy email
+    function copyEmail(){
+      const email = 'alex.rivera@example.com';
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(email).then(()=> showToast('Email copied to clipboard'));
+      }else{
+        const ta = document.createElement('textarea');
+        ta.value = email; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); showToast('Email copied to clipboard'); }catch(e){ window.prompt('Copy email:', email); }
+        ta.remove();
+      }
+    }
+
+    // project open (demo)
+    function openProject(id){
+      showToast('Opening project preview (demo) — implement real navigation');
+    }
+
+    // contact form handling - demo only (no backend)
+    function handleSubmit(e){
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const name = data.get('name').trim();
+      const email = data.get('email').trim();
+      const message = data.get('message').trim();
+      if(!name || !email || !message){ showToast('Please fill all fields'); return; }
+
+      // Simulate sending: open mail client as friendly fallback
+      const subject = encodeURIComponent('Website inquiry from ' + name);
+      const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
+      window.location.href = `mailto:alex.rivera@example.com?subject=${subject}&body=${body}`;
+
+      showToast('Opening your email client...');
+      form.reset();
+    }
+
+    function mailtoContact(){
+      const email = 'alex.rivera@example.com';
+      window.location.href = 'mailto:' + email;
+    }
+
+    // toast helper
+    let toastTimer;
+    function showToast(text='Done'){
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> toast.classList.remove('show'), 3200);
+    }
+
+    // small accessibility: smooth focus for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); el.setAttribute('tabindex','-1'); el.focus(); }
+      });
+    });
+
+    // keyboard shortcut: press "e" to copy email quickly
+    document.addEventListener('keydown', (ev)=>{
+      if(ev.key.toLowerCase()==='e' && !ev.shiftKey && !ev.ctrlKey && !ev.metaKey){
+        copyEmail();
+      }
+    });
+  </script>
+</body>
+  </html>
